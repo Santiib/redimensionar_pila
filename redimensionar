@@ -1,0 +1,23 @@
+// Cambia el largo de la pila
+// Pre: la pila fue creada
+// Post: duplica o divide por la mitad su largo y devuelve true
+// o la pila queda intacta y devuelve false si no se pudo cambiar el largo o true si no habia que redimensionar
+bool redimensionar(pila_t *pila){
+	size_t largo_nuevo;
+	if(pila->largo == 0){
+		largo_nuevo = 2;
+	}else if(pila->tam == pila->largo / 4){
+		largo_nuevo = pila->largo / 2;
+	}else if(pila->tam == pila->largo - 1){
+		largo_nuevo = pila->largo * 2;
+	}else{
+		return true;
+	}
+	void* datos_nuevo = realloc(pila->datos,largo_nuevo * sizeof(void*));
+	if(datos_nuevo == NULL){
+		return false;
+	}
+	pila->datos = datos_nuevo;
+	pila->largo = largo_nuevo;
+	return true;
+}
